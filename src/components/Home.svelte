@@ -4,8 +4,8 @@
   let path = "";
   let repoPath = "";
   $: repoPath = getRepoData(registry);
-  const checkGitHub = /github\.com\/(.*?)\/([^?\/.]*)/;
-  const checkGitLab = /gitlab\.com\/(.*?)\/([^?\/.]*)/;
+  const checkGitHub = /github\.com\/(.*?)\/((?:(?!\.git).)*)/;
+  const checkGitLab = /gitlab\.com\/(.*?)\/((?:(?!\.git).)*)/;
   const getRepoData = (url) => {
     const checkGh = url.match(checkGitHub);
     if (checkGh) {
@@ -21,7 +21,7 @@
 <div
   class="absolute top-0 left-0 h-full w-full text-center bg-secondary dark:bg-secondary-dark text-primary dark:text-primary-dark"
 >
-  <div class="max-w-xl mx-auto my-10">
+  <div class="max-w-xl mx-auto my-10 px-2">
     <svg
       class="mx-auto fill-current"
       width="4rem"
@@ -62,10 +62,10 @@
     />
     {#if repoPath}
       <div
-        class="py-3 px-4 text-left rounded-lg bg-primary dark:bg-primary-dark bg-opacity-2"
+        class="py-3 px-4 text-left rounded-lg bg-primary bg-opacity-2 dark:bg-primary-dark dark:bg-opacity-2"
       >
         Your can access your package under:
-        <div class="font-bold overflow-auto">
+        <div class="font-bold break-words">
           https://denopkg.dev/{repoPath}{tag != "" ? "@" + tag : ""}{path !=
             "" && path[0] != "/"
             ? "/" + path
@@ -73,5 +73,11 @@
         </div>
       </div>
     {/if}
+    <div class="italic opacity-30 my-3">
+      made by <a class="underline" target="_blank" href="https://alexander.sbs"
+        >@alexanderschau</a
+      > | <a class="underline" target="_blank" href="https://github.com/alexanderschau/denopkg.dev"
+      >GitHub repo</a>
+    </div>
   </div>
 </div>
